@@ -9,7 +9,7 @@ function BlueCtrl () {
 }
 let SerialData = ""
 robotbit.MotorStopAll()
-basic.showIcon(IconNames.Duck)
+basic.showIcon(IconNames.Butterfly)
 lcdDisplay.lcdInitIIC()
 lcdDisplay.lcdClearAll()
 bluetooth.startUartService()
