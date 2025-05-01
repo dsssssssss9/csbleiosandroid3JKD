@@ -4,53 +4,8 @@ bluetooth.onBluetoothConnected(function () {
 bluetooth.onBluetoothDisconnected(function () {
     basic.showIcon(IconNames.No)
 })
-function Music () {
-    music.setBuiltInSpeakerEnabled(false)
-    music.setVolume(127)
-    if (g_music == 1) {
-        OmniBit.CarRun(OmniBit.enCarRun.Left_Front, 255)
-        music.playTone(262, music.beat(BeatFraction.Whole))
-    } else if (g_music == 2) {
-        OmniBit.CarRun(OmniBit.enCarRun.Right_Front, 255)
-        music.playTone(294, music.beat(BeatFraction.Whole))
-    } else if (g_music == 3) {
-        OmniBit.CarRun(OmniBit.enCarRun.Left_Back, 255)
-        music.playTone(330, music.beat(BeatFraction.Whole))
-    } else if (g_music == 4) {
-        OmniBit.CarRun(OmniBit.enCarRun.Right_Back, 255)
-        music.playTone(349, music.beat(BeatFraction.Whole))
-    } else if (g_music == 5) {
-        OmniBit.CarDrift(OmniBit.enCarDrift.Rear_To_Left, 255)
-        music.playTone(392, music.beat(BeatFraction.Whole))
-    } else if (g_music == 6) {
-        OmniBit.CarDrift(OmniBit.enCarDrift.Rear_To_Right, 255)
-        music.playTone(440, music.beat(BeatFraction.Whole))
-    } else if (g_music == 7) {
-        OmniBit.CarDrift(OmniBit.enCarDrift.Head_To_Left, 255)
-        music.playTone(494, music.beat(BeatFraction.Whole))
-    } else if (g_music == 8) {
-        OmniBit.CarDrift(OmniBit.enCarDrift.Head_To_Right, 255)
-        music.playTone(523, music.beat(BeatFraction.Whole))
-    } else if (g_music == 9) {
-        OmniBit.WideAngleDrift(OmniBit.enWideAngleDrift.Left, 50, 255)
-        music.playTone(554, music.beat(BeatFraction.Whole))
-    } else if (g_music == 10) {
-        OmniBit.WideAngleDrift(OmniBit.enWideAngleDrift.Right, 50, 255)
-        music.playTone(622, music.beat(BeatFraction.Whole))
-    } else if (g_music == 11) {
-        OmniBit.WideAngleDrift(OmniBit.enWideAngleDrift.Left, 255, 50)
-        music.playTone(740, music.beat(BeatFraction.Whole))
-    } else if (g_music == 12) {
-        OmniBit.WideAngleDrift(OmniBit.enWideAngleDrift.Right, 255, 50)
-        music.playTone(831, music.beat(BeatFraction.Whole))
-    } else if (g_music == 13) {
-        music.playTone(932, music.beat(BeatFraction.Whole))
-    } else if (g_music == 0) {
-        music.setVolume(0)
-    }
-}
-function BlueCtrl () {
-	
+function BlueCtrl() {
+
 }
 bluetooth.onUartDataReceived(serial.delimiters(Delimiters.Hash), function () {
     uartData = bluetooth.uartReadUntil(serial.delimiters(Delimiters.Hash))
@@ -137,7 +92,7 @@ let g_ctrl = 0
 let g_mode = 0
 let g_music = 0
 let g_RGBMode = 0
-OmniBit.MotorStopAll()
+robotbit.MotorStopAll()
 basic.showIcon(IconNames.Duck)
 lcdDisplay.lcdInitIIC()
 lcdDisplay.lcdClearAll()
@@ -147,17 +102,12 @@ g_ctrl = 0
 g_mode = 0
 g_music = 0
 g_RGBMode = 0
-OmniBit.RGB_Program().clear()
-OmniBit.RGB_Program().show()
-OmniBit.MotorStopAll()
+
+robotbit.MotorStopAll()
 basic.showString("S")
 bluetooth.setTransmitPower(7)
 bluetooth.startUartService()
-OmniBit.Servo2(OmniBit.enServo.S1, 0)
-basic.forever(function () {
-    BlueCtrl()
-    Music()
-})
+
 // LCD Screen Wiring Colour Code
 // 
 // Red     ----->     3V
@@ -171,9 +121,9 @@ basic.forever(function () {
     SerialData = bluetooth.uartReadUntil(serial.delimiters(Delimiters.Hash))
     if (SerialData == "A") {
         lcdDisplay.lcdSetBgIamge("fruit.png")
-        OmniBit.CarRun(OmniBit.enCarRun.Forward, 199)
+        robotbit.MotorRun(robotbit.Motors.M1A, 199)
     } else if (SerialData == "B") {
         lcdDisplay.lcdSetBgIamge("building.png")
-        OmniBit.MotorStopAll()
+        robotbit.MotorStopAll()
     }
 })
